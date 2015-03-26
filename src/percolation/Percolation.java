@@ -9,8 +9,12 @@ public class Percolation {
     private boolean[][] grid;
 
     public Percolation(int gridSize) {
-        if (gridSize < 1) throw new IllegalArgumentException();
+        if (gridSize < 1) throw new IllegalArgumentException(wrongGridSizeError(gridSize));
         grid = new boolean[gridSize][gridSize];
+    }
+
+    private String wrongGridSizeError(int gridSize) {
+        return String.format("Cannot create a percolation of size %s", gridSize);
     }
 
     public boolean[][] getGrid() {
@@ -52,11 +56,7 @@ public class Percolation {
 		return lastRow();
 	}
 
-	private int gridSize() {
-		return grid.length;
-	}
-
-	public boolean percolates() {
+    public boolean percolates() {
 		for (int column = 1; column <= gridSize(); column++) {
 			if (isFull(lastColumn(), column)) return true;
 		}
@@ -68,4 +68,17 @@ public class Percolation {
 		return gridSize();
 	}
 
+    public int gridSize() {
+        return getGrid().length;
+    }
+
+    public double getPercolationThreshold() {
+        double numberOfOpenCells = 0.0;
+        for (boolean[] gridRow : getGrid()) {
+            for (boolean cell : gridRow) {
+                if (cell) numberOfOpenCells++;
+            }
+        }
+        return numberOfOpenCells / Math.pow(gridSize(), 2);
+    }
 }

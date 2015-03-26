@@ -59,8 +59,8 @@ public class PercolationTest extends TestCase {
     
     public void testSitesThatAreSouthOfAFullSiteAreFull() {
         percolation.open(1, 2);
-        
-        for(int row = 2; row <= percolation.getGrid().length; row++) {
+
+        for(int row = 2; row <= percolation.gridSize(); row++) {
             assertFalse(percolation.isFull(row, 2));
             
             percolation.open(row, 2);
@@ -68,10 +68,10 @@ public class PercolationTest extends TestCase {
             assertTrue(percolation.isFull(row, 2));
         }
     }
-    
+
     public void testOpenSitesToTheEastOfTheFullSitesAreFull() {
         percolation.open(1,1);
-        for (int column = 1; column <= percolation.getGrid().length; column++) {
+        for (int column = 1; column <= percolation.gridSize(); column++) {
             assertFalse(percolation.isFull(2, column));
             percolation.open(2, column);
             assertTrue(String.format("Site (%s, %s) should be full", 2, column), percolation.isFull(2, column));
@@ -224,8 +224,6 @@ public class PercolationTest extends TestCase {
             assertTrue(percolation.isFull(2, column));
         }
     }
-    
-    
-    
-    
+
+
 }
